@@ -1,0 +1,36 @@
+.model small
+.stack 100h
+.data
+
+var1 db 100 dup("$")
+
+.code
+main proc
+
+mov ax,@data
+mov ds,ax
+
+mov bl,0
+mov si,offset var1
+
+l1:
+mov ah,1
+int 21h
+cmp al,13
+je printstring
+
+mov[si],al
+inc si
+inc bl
+jmp l1
+
+printstring:
+
+
+mov dl,bl
+mov ah,2
+add dl,48
+int 21h
+
+main endp
+end main
